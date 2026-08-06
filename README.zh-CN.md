@@ -165,7 +165,6 @@ Git 负责意图与历史，AI 驱动工程流程，Specato 归一化并校验�
 | 环节 | 推荐规范或契约 | 在链路中的作用 | 当前状态 |
 | --- | --- | --- | --- |
 | 变更意图与验收 | OpenSpec 等 Git-native SDD 格式，或等价的版本化 Markdown 规范 | 定义由人确认的需求、场景、验收边界和允许变更范围 | 推荐接入约定；核心不绑定具体 SDD 格式 |
-| AI 工作策略 | `AGENTS.md` 以及仓库安全和公开策略 | 告诉可替换 AI client 如何工作、允许读取或生成什么、需要执行哪些门禁 | 已作为仓库指令实现 |
 | 项目拓扑 | `qa/project.yaml` 中的 Specato `ProjectManifest` | 映射模块、规范来源、TestCase 路径、environment、可读根目录、runner 和报告，避免硬编码业务领域 | 部分实现；catalog、environment 和文件读取字段已生效 |
 | API 契约 | OpenAPI Specification（OAS） | 定义 operation、参数、请求/响应 schema、鉴权要求和稳定 `operationId` 引用 | Catalog 发现已实现；生成与执行 adapter 仍属于路线图 |
 | 多步骤 API 行为 | Arazzo Specification | 把 OAS operation 连接成包含步骤输入、输出、依赖关系和成功条件的 workflow | Catalog 发现已实现；可执行 workflow adapter 仍属于路线图 |

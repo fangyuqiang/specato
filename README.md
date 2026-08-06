@@ -165,7 +165,6 @@ Not every lifecycle artifact needs a new public standard. Specato reuses establi
 | Stage | Recommended standard or contract | Role in the lifecycle | Current status |
 | --- | --- | --- | --- |
 | Change intent and acceptance | A Git-native SDD format such as OpenSpec, or equivalent versioned Markdown specifications | Defines the human-approved requirement, scenarios, acceptance boundaries, and allowed change | Recommended adoption convention; the core remains SDD-format neutral |
-| AI operating policy | `AGENTS.md` plus repository security and publication policies | Tells interchangeable AI clients how to work, what they may read or generate, and which validation gates apply | Implemented as repository instructions |
 | Project topology | Specato `ProjectManifest` in `qa/project.yaml` | Maps modules, specification sources, TestCase paths, environments, readable roots, runners, and reports without hard-coding a business domain | Partially implemented; catalog, environment, and readable-file fields are active |
 | API contract | OpenAPI Specification (OAS) | Defines operations, parameters, request/response schemas, authentication requirements, and stable `operationId` references | Catalog discovery implemented; generation and execution adapters remain roadmap work |
 | Multi-step API behavior | Arazzo Specification | Links OAS operations into workflows with step inputs, outputs, dependencies, and success criteria | Catalog discovery implemented; executable workflow adapters remain roadmap work |
