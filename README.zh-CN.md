@@ -79,6 +79,121 @@ Specato 不是单一内置 Agent、数据库优先的测试管理平台，也不
 
 > **当前状态：** `0.1` 早期源码预览。当前仓库已经实现 SDD 控制基础和观察层；完整的 AI 生成契约、共享的可执行 runner adapter，以及端到端自动化生命周期仍属于路线图工作。
 
+## 推荐接入方式：嵌入产品 monorepo
+
+公开的 Specato 仓库是一份独立、完全 synthetic 的参考实现。真实项目接入时，推荐把 Specato workspace、项目 manifest、规范、TestCase 和生成的自动化代码放进**产品源码所在的同一个 monorepo**。
+
+这是一项架构选择，而不只是方便的目录布局。一个 feature branch 可以同时修改产品代码及对应规范；AI coding assistant 随后在同一变更中生成或更新 TestCase、API 自动化和 UI 自动化。审查、校验、执行与证据都指向完全相同的 Git commit，从根本上避免源码仓库与独立数据库测试平台之间的同步问题。
+
+推荐布局示意如下：
+
+```text
+your-product/
+├─ apps/ or services/             # 产品源码
+├─ packages/                      # 产品共享 package
+├─ openspec/ or specs/            # SDD 变更与验收规范
+├─ tests/
+│  ├─ testcases/                  # 版本化 Markdown TestCase
+│  ├─ api/                        # AI 生成的 API 自动化
+│  └─ ui/                         # AI 生成的 UI 自动化
+├─ qa/
+│  ├─ project.yaml                # Specato ProjectManifest
+│  ├─ config/                     # 环境模板；本机 secret 保持忽略
+│  ├─ core/                       # Catalog 与校验契约
+│  └─ workbench/                  # 面向人的观察 UI 与本机服务
+├─ package.json
+└─ pnpm-workspace.yaml            # 纳入 Specato workspace
+```
+
+产品目录不要求固定名称。当前 `qa/project.yaml` schema 已声明规范、TestCase、environment 和 Workbench 可读路径；automation、runner 与 report mapping 会随执行契约实现后加入 manifest。Workbench 的读取范围仍受 manifest 白名单限制，私有环境值仍不得进入 Git。在源码预览阶段，接入意味着把 workspace 以源码方式纳入产品 monorepo；未来即使改为 package 分发，安装方式可以变化，同仓运行模型不会变化。
+
+预期的分支工作流是：
+
+```text
+变更规范 + 产品代码
+        │
+        ▼
+AI 同步更新 TestCase + API 自动化 + UI 自动化
+        │
+        ▼
+在同一个 checkout 中完成契约校验 + CLI 执行
+        │
+        ▼
+证据和报告关联同一份规范、TestCase 与 commit
+```
+
+## 系统整体架构
+
+```text
+产品 monorepo / Git 控制面
+  产品源码 · SDD 规范 · OAS · Arazzo · TestCase · 自动化代码
+                              │
+                              ▼
+AI 流程驱动者
+  Codex · Claude Code · 其他具备仓库能力的 AI client
+  读取完整仓库并生成可审查变更
+                              │
+                              ▼
+Specato 核心契约
+  ProjectManifest · catalog · 环境校验 · 执行策略
+                              │
+                              ▼
+CLI 执行边界
+  ExecutionPlan · RunnerAdapter · preflight · 显式退出状态
+                              │
+                              ▼
+成熟执行工具
+  API runner · Playwright 或其他 UI runner · 报告生成器
+                              │
+                              ▼
+证据与报告面
+  结构化结果 · Allure · 原生 HTML 报告 · 可追溯引用
+                              │
+                              ▼
+人的观察面
+  Workbench UI · 源码/配置视图 · 诊断 · 复核
+```
+
+Git 负责意图与历史，AI 驱动工程流程，Specato 归一化并校验契约，成熟工具负责执行，报告保存证据，人复核最终状态。Workbench 不会成为第二个事实来源，也不会引入另一套编排数据库。
+
+当前预览版已经实现项目发现、catalog、环境校验、受约束的仓库读取、报告发现和观察 UI。版本化 `ExecutionPlan`、execution event/result、共享 `RunnerAdapter` 调用和完整 AI 生成接口是下一层架构。详细契约边界见[架构说明](docs/architecture.zh-CN.md)。
+
+## 全链路使用的规范与契约
+
+并非每个环节都需要创造新的公共标准。Specato 在合适的位置复用成熟标准，只在跨工具缺少连接边界时增加小型、版本化的仓库契约。
+
+| 环节 | 推荐规范或契约 | 在链路中的作用 | 当前状态 |
+| --- | --- | --- | --- |
+| 变更意图与验收 | OpenSpec 等 Git-native SDD 格式，或等价的版本化 Markdown 规范 | 定义由人确认的需求、场景、验收边界和允许变更范围 | 推荐接入约定；核心不绑定具体 SDD 格式 |
+| AI 工作策略 | `AGENTS.md` 以及仓库安全和公开策略 | 告诉可替换 AI client 如何工作、允许读取或生成什么、需要执行哪些门禁 | 已作为仓库指令实现 |
+| 项目拓扑 | `qa/project.yaml` 中的 Specato `ProjectManifest` | 映射模块、规范来源、TestCase 路径、environment、可读根目录、runner 和报告，避免硬编码业务领域 | 部分实现；catalog、environment 和文件读取字段已生效 |
+| API 契约 | OpenAPI Specification（OAS） | 定义 operation、参数、请求/响应 schema、鉴权要求和稳定 `operationId` 引用 | Catalog 发现已实现；生成与执行 adapter 仍属于路线图 |
+| 多步骤 API 行为 | Arazzo Specification | 把 OAS operation 连接成包含步骤输入、输出、依赖关系和成功条件的 workflow | Catalog 发现已实现；可执行 workflow adapter 仍属于路线图 |
+| 人可读测试意图 | Specato Markdown TestCase 契约 | 用稳定 ID 组织 Requirement → Scenario → Priority → Preconditions → Steps → Expected results | 解析、校验、catalog、过滤和展示已实现 |
+| 环境选择 | 版本化 YAML 环境模板 + 环境变量 secret reference | 定义命名 server、继承、传输策略和 secret 名称，不提交 secret value | 已实现配置校验与就绪状态展示 |
+| 生成的自动化 | 带稳定 TestCase ID 和 OAS/Arazzo 引用的 runner-native 源码 | 把测试意图转换成可执行 API/UI 代码，同时保留到来源契约的追溯关系 | 目标 AI 生成约定；共享生成接口尚未实现 |
+| 执行 | CLI + 版本化 `ExecutionPlan` 和 `RunnerAdapter` 契约 | 选择用例，校验 environment 与 runner capability，非交互调用工具并暴露确定的失败行为 | CLI-first 架构已定义；共享契约与调用仍属于路线图 |
+| 证据与报告 | 结构化 execution event/result、Allure result，以及 Playwright HTML 等 runner 原生报告 | 保存已脱敏结果，把失败、artifact 和报告关联回规范与 TestCase | Allure 与 Playwright 报告发现已实现；统一 event/result 契约仍属于路线图 |
+| 变更控制 | Git commit、branch、review 和 CI | 让规范、生成资产、代码和校验历史作为同一个变更被审查 | 由宿主产品仓库提供 |
+
+OAS 描述单个 API 契约，Arazzo 描述多个 API operation 如何组成 workflow，Markdown TestCase 表达人可以复核的测试意图，runner-native 代码负责实际自动化执行。这些资产相互补充，而不是相互替代。
+
+## 技术栈与选择理由
+
+| 层次 | 参考实现中的选择 | 选择理由 |
+| --- | --- | --- |
+| Workspace | pnpm workspace / monorepo | 便于把 QA workspace 嵌入产品 package 旁边，让 AI 与 CI 使用同一份依赖图和命令入口 |
+| Runtime 与 CLI | 使用 ECMAScript module 的 Node.js | 可在开发机和 CI 间移植，适合仓库工具，也容易非交互调用 |
+| 仓库契约 | YAML 与 Markdown | 人可读、AI 可读、可 diff、可审查，并且不依赖应用数据库 |
+| 发现与归一化 | 小型 Node.js module、`fast-glob` 和 YAML parser | 保持 catalog 构建确定性，同时不引入数据库依赖 |
+| 本机服务 | Express | 为 catalog、配置状态、文件和报告提供轻量 loopback API，不把 Workbench 变成部署平台 |
+| 观察 UI | React、Vite、Tailwind CSS 和 Radix UI primitive | 构建模块化本机界面，同时让编排状态继续留在仓库契约和 CLI 工具中 |
+| API 与源码查看 | Scalar API Reference 和 Monaco Editor | 复用成熟 OAS 与源码查看器，不重新实现 editor 和 renderer |
+| 报告 | Allure，以及 Playwright HTML 等 runner 原生报告 | 保留成熟报告生态和 runner 的详细诊断能力 |
+| 验证 | Node.js test runner 与完全 synthetic 的 fixture | 让默认校验快速、离线、可复现，并且不需要私有环境或凭据 |
+
+Specato 有意不绑定单一 API runner 或 AI 供应商。只要 runner 提供非交互 CLI、显式配置、确定的退出状态，以及可由安全 adapter 归一化的机器可读结果，就适合接入。UI 自动化推荐以 Playwright 为基础；API 执行可以由项目选择支持 OAS/Arazzo 的 CLI 工具。
+
 ## 当前能力
 
 - 通过 `qa/project.yaml` 以 manifest 驱动 OpenAPI、Arazzo 和 TestCase 发现。
