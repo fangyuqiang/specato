@@ -6,7 +6,7 @@ import test from 'node:test';
 import { resolveReportFile } from '../src/server/services/report-files.mjs';
 
 test('resolves report assets inside the configured realpath boundary', async (t) => {
-  const temporaryRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'qa-workbench-report-files-'));
+  const temporaryRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'specato-report-files-'));
   t.after(() => fs.rm(temporaryRoot, { recursive: true, force: true }));
   const reportRoot = path.join(temporaryRoot, 'reports');
   const runRoot = path.join(reportRoot, 'run-1');
@@ -19,7 +19,7 @@ test('resolves report assets inside the configured realpath boundary', async (t)
 });
 
 test('rejects a report symlink that resolves outside the configured root', async (t) => {
-  const temporaryRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'qa-workbench-report-symlink-'));
+  const temporaryRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'specato-report-symlink-'));
   t.after(() => fs.rm(temporaryRoot, { recursive: true, force: true }));
   const reportRoot = path.join(temporaryRoot, 'reports');
   const outsideRoot = path.join(temporaryRoot, 'outside');

@@ -2,9 +2,9 @@
   <a href="CONTRIBUTING.md">English</a> | <strong>简体中文</strong>
 </div>
 
-# 参与 QA Workbench 贡献
+# 参与 Specato 贡献
 
-QA Workbench 当前是早期源码预览。贡献应保持仓库可独立安装、可验证并且不携带私有项目资产。可复用契约比快速堆叠项目专用功能更重要。
+Specato 当前是早期源码预览。贡献应保持仓库可独立安装、可验证并且不携带私有项目资产。可复用契约比快速堆叠项目专用功能更重要。
 
 ## 开始之前
 

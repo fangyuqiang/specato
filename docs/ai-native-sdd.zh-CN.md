@@ -6,7 +6,7 @@
 
 ## 产品主张
 
-QA Workbench 是一个面向 API/UI 自动化测试的 AI-native、Git-based、规范驱动开发（SDD）工作空间。它的主要使用者是根据人编写的规范开展工作的 AI coding assistant。
+Specato 是一个面向 API/UI 自动化测试的 AI-native、Git-based、规范驱动开发（SDD）工作空间。它的主要使用者是根据人编写的规范开展工作的 AI coding assistant。
 
 它**不是**单一自治 Agent、Agent 框架，也不是要替代成熟测试工具的私有实现。Codex、Claude Code 以及其他具备仓库操作能力的 AI coding assistant 通过读取版本化契约、生成测试资产与集成代码、调用显式工具来驱动工程流程；可视化 Workbench UI 为人提供统一的观察、复核和追溯入口。
 
@@ -20,7 +20,7 @@ QA Workbench 是一个面向 API/UI 自动化测试的 AI-native、Git-based、�
 | SDD 资产 | 意图、规范、验收场景、TestCase 和执行引用 | 隐藏的项目约定 |
 | 人 | 定义规范、验收意图、策略和审批边界 | 手工编写或协调每一份测试资产 |
 | AI coding assistant | 生成 TestCase、API/UI 自动化、adapter 变更和 execution plan；调用受支持工具；解释结果 | 脱离仓库策略行动或成为隐藏事实来源 |
-| QA Workbench 契约与工具 | 为 AI client 提供稳定的发现、校验、生成、执行和证据关联工作空间 | 把流程内置或锁定到单一 AI 供应商 |
+| Specato 契约与工具 | 为 AI client 提供稳定的发现、校验、生成、执行和证据关联工作空间 | 把流程内置或锁定到单一 AI 供应商 |
 | 核心契约 | 归一化 catalog、environment、execution plan、event 和 report reference | 编码单一产品的业务语言 |
 | 既有 runner 与 adapter | 通过显式能力执行 API/UI 自动化 | 决定产品意图或治理规则 |
 | 证据与报告工具 | 保存已脱敏的结构化结果和原生报告 | 成为规范事实来源 |
@@ -79,7 +79,7 @@ AI-native 不代表“默认信任 AI”。不可信规范、路径边界、命�
 
 ## 集成优先，而不是重造
 
-只有能补充以下跨工具缺口时，QA Workbench 才应增加集成能力：
+只有能补充以下跨工具缺口时，Specato 才应增加集成能力：
 
 - 稳定的仓库契约；
 - 安全发现和归一化；

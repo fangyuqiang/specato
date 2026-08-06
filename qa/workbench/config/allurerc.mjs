@@ -1,10 +1,10 @@
 import { defineConfig } from 'allure';
 
-const reportName = process.env.QA_WORKBENCH_ALLURE_REPORT_NAME || 'QA Workbench 自动化测试报告';
+const reportName = process.env.SPECATO_ALLURE_REPORT_NAME || 'Specato 自动化测试报告';
 
 export default defineConfig({
   name: reportName,
-  historyPath: process.env.QA_WORKBENCH_ALLURE_HISTORY_PATH || './output/allure-history/all.jsonl',
+  historyPath: process.env.SPECATO_ALLURE_HISTORY_PATH || './output/allure-history/all.jsonl',
   plugins: {
     awesome: {
       options: {

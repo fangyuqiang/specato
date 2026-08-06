@@ -4,11 +4,11 @@
 
 # AI Coding Assistant 指令
 
-本仓库是独立的通用 QA Workbench，不依赖来源业务仓库、相邻 checkout 或非公开基础设施。
+本仓库是独立、通用的 Specato 项目，不依赖来源业务仓库、相邻 checkout 或非公开基础设施。
 
 ## 产品模型
 
-- QA Workbench 是 AI-native、Git-based、SDD-driven 的 API/UI 自动化测试工作空间。
+- Specato 是 AI-native、Git-based、SDD-driven 的 API/UI 自动化测试工作空间。
 - 人定义并审批规范、验收意图、策略和风险边界。
 - Codex、Claude Code 等可替换的 AI coding assistant 根据规范生成和维护 TestCase、API/UI 自动化、runner adapter、execution plan 与报告集成。
 - 仓库契约是持久接口。不得把某个 prompt、单一模型、隐藏 Agent 状态或可视化 UI 作为事实来源。

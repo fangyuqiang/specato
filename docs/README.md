@@ -2,9 +2,9 @@
   <strong>English</strong> | <a href="README.zh-CN.md">简体中文</a>
 </div>
 
-# QA Workbench Documentation
+# Specato Documentation
 
-This directory documents QA Workbench as an **AI-native, Git-based, SDD-driven API and UI automation testing solution**.
+This directory documents Specato as an **AI-native, Git-based, SDD-driven API and UI automation testing solution**.
 
 English is the default language. Each maintained document has a Simplified Chinese mirror named `*.zh-CN.md`. Update both files in the same change.
 

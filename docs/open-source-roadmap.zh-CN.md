@@ -6,7 +6,7 @@
 
 ## 产品方向
 
-QA Workbench 的目标是成为 AI-native、Git-based、SDD-driven 的 API/UI 自动化测试解决方案。
+Specato 的目标是成为 AI-native、Git-based、SDD-driven 的 API/UI 自动化测试解决方案。
 
 人定义规范、验收意图和策略边界；Codex、Claude Code 等可替换的 AI coding assistant 把事实来源转换为 TestCase、API/UI 自动化、runner 集成、execution plan 和报告集成；可视化 Workbench UI 让人观察、复核和批准结果状态。
 

@@ -9,7 +9,7 @@ const TestcasePage = lazy(() => import('@/client/features/testcases/TestcasePage
 const ReportsPage = lazy(() => import('@/client/features/reports/ReportsPage'));
 const EnvironmentPage = lazy(() => import('@/client/features/environments/EnvironmentPage'));
 const FileViewer = lazy(() => import('@/client/features/files/FileViewer'));
-const ENVIRONMENT_STORAGE_KEY = 'qa-workbench-environment';
+const ENVIRONMENT_STORAGE_KEY = 'specato-environment';
 
 function PageFallback() {
   return <div className="loading">正在加载页面。</div>;

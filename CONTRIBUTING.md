@@ -2,9 +2,9 @@
   <strong>English</strong> | <a href="CONTRIBUTING.zh-CN.md">简体中文</a>
 </div>
 
-# Contributing to QA Workbench
+# Contributing to Specato
 
-QA Workbench is an early source preview. Contributions should keep the repository independently installable, verifiable, and free of private project assets. Reusable contracts are more valuable than fast accumulation of project-specific features.
+Specato is an early source preview. Contributions should keep the repository independently installable, verifiable, and free of private project assets. Reusable contracts are more valuable than fast accumulation of project-specific features.
 
 ## Before you start
 

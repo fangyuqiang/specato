@@ -40,7 +40,7 @@ test('rejects non-http server URLs', () => {
 
 test('rejects credentials and query parameters embedded in server URLs', () => {
   assert.throws(() => buildEnvironmentConfig({
-    environments: { invalid: { servers: { api: 'https://user:pass@api.example.test' } } },
+    environments: { invalid: { servers: { api: 'https://user@api.example.test' } } },
   }), /cannot contain userinfo/);
   assert.throws(() => buildEnvironmentConfig({
     environments: { invalid: { servers: { api: 'https://api.example.test?token=value' } } },

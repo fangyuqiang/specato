@@ -88,8 +88,8 @@ export async function generateAllureReports({
       '--report-name', definition.title,
       layerResultsRoot,
     ], {
-      QA_WORKBENCH_ALLURE_HISTORY_PATH: historyPath,
-      QA_WORKBENCH_ALLURE_REPORT_NAME: definition.title,
+      SPECATO_ALLURE_HISTORY_PATH: historyPath,
+      SPECATO_ALLURE_REPORT_NAME: definition.title,
     });
     const generatedAt = new Date().toISOString();
     const report = {

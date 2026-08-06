@@ -2,11 +2,15 @@
   <a href="README.md">English</a> | <strong>简体中文</strong>
 </div>
 
-# QA Workbench
+# Specato
 
-QA Workbench 是一个 **AI-native、Git-based、SDD-driven 的 API/UI 自动化测试工作台**。人负责在 Git 中定义和审批规范、边界与验收意图；Codex、Claude Code 等具备仓库操作能力的 AI coding assistant 根据规范生成 TestCase、API/UI 自动化、runner 集成、execution plan 和可追溯报告。
+> **AI 原生、Git 驱动、从规范到测试自动化。**
 
-QA Workbench 是这条流程面向 AI 的工作空间和契约系统。它的可视化 UI 是面向人的观察与复核窗口，不是让人手工编排测试的主要入口。项目集成 OpenAPI、Arazzo、Playwright、Allure 等成熟工具，而不是替代它们。
+Specato 是一个 **AI-native、Git-based、SDD-driven 的 API/UI 自动化测试工作空间**。人负责在 Git 中定义和审批规范、边界与验收意图；Codex、Claude Code 等具备仓库操作能力的 AI coding assistant 根据规范生成 TestCase、API/UI 自动化、runner 集成、execution plan 和可追溯报告。
+
+Specato 是这条流程面向 AI 的工作空间和契约系统。它的可视化 Workbench UI 是面向人的观察与复核窗口，不是让人手工编排测试的主要入口。项目集成 OpenAPI、Arazzo、Playwright、Allure 等成熟工具，而不是替代它们。
+
+名称由 **SPEC**ification 与 **A**utomation、**T**esting、**O**rchestration 组合而成。规范始终是事实来源，AI 围绕成熟工具生成可执行资产。
 
 > **当前状态：** `0.1` 早期源码预览。仓库已按 Apache-2.0 公开，但尚未承诺稳定 API、远程部署、package 分发或可执行 runner adapter。
 
@@ -20,7 +24,7 @@ Codex / Claude Code / 其他 AI coding assistant
 生成 TestCase、API/UI 自动化和集成变更
             │
             ▼
-QA Workbench 校验契约并协调既有 runner
+Specato 校验契约并协调既有 runner
             │
             ▼
 Playwright / API 工具 / 其他执行引擎
@@ -32,9 +36,9 @@ Playwright / API 工具 / 其他执行引擎
 人观察、复核并批准变更
 ```
 
-AI client 可以替换，持久接口是 Git 仓库。QA Workbench 不是单一内置 Agent，也不是新测试框架。详见 [AI-native SDD 运行模型](docs/ai-native-sdd.zh-CN.md)。
+AI client 可以替换，持久接口是 Git 仓库。Specato 不是单一内置 Agent，也不是新测试框架。详见 [AI-native SDD 运行模型](docs/ai-native-sdd.zh-CN.md)。
 
-## 为什么需要 QA Workbench
+## 为什么需要 Specato
 
 - 用 Git 管理规范、TestCase 和审查历史。
 - 将模块、API operation、workflow 和 scenario 归一化为统一的可搜索目录。
@@ -71,7 +75,7 @@ AI 生成自动化、共享 runner adapter 调用、端到端执行编排、远�
 ## 仓库结构
 
 ```text
-qa-workbench/
+specato/
 ├─ qa/                    # 项目 manifest、核心模块和 Workbench
 ├─ examples/              # 合成 OAS、Arazzo 和 TestCase fixture
 ├─ docs/                  # 架构、安全和项目治理文档
@@ -126,12 +130,12 @@ pnpm run audit:repository
 
 ## 参与贡献
 
-QA Workbench 倾向于能加强可复用契约的小步、可审查变更。贡献前请阅读[架构说明](docs/architecture.zh-CN.md)、[公开内容边界](docs/publication-boundary.zh-CN.md)和[贡献指南](CONTRIBUTING.zh-CN.md)。
+Specato 倾向于能加强可复用契约的小步、可审查变更。贡献前请阅读[架构说明](docs/architecture.zh-CN.md)、[公开内容边界](docs/publication-boundary.zh-CN.md)和[贡献指南](CONTRIBUTING.zh-CN.md)。
 
 安全问题不得在公开 issue 中披露，请遵循 [SECURITY.zh-CN.md](SECURITY.zh-CN.md)。
 
 ## 许可证与分发
 
-QA Workbench 自有源码采用 [Apache License 2.0](LICENSE)。第三方组件继续适用其锁定版本的许可证和版权；复制或生成到仓库中的第三方源码记录在 [THIRD_PARTY_NOTICES.zh-CN.md](THIRD_PARTY_NOTICES.zh-CN.md)。
+Specato 自有源码采用 [Apache License 2.0](LICENSE)。第三方组件继续适用其锁定版本的许可证和版权；复制或生成到仓库中的第三方源码记录在 [THIRD_PARTY_NOTICES.zh-CN.md](THIRD_PARTY_NOTICES.zh-CN.md)。
 
 项目当前只分发源码，不发布 `node_modules`、第三方二进制、容器、离线依赖包或 npm package。根 package 保持 `private: true`，避免误发布。若分发形态改变，必须以实际交付产物重新计算 notices 和许可证义务。

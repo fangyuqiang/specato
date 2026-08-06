@@ -6,7 +6,7 @@
 
 ## 当前判断
 
-QA Workbench 已作为 `0.1` 早期源码预览公开。它的定位是 AI-native、Git-based、SDD-driven 工作空间：人定义规范和边界，可替换的 AI coding assistant 生成并维护 TestCase、API/UI 自动化、runner 集成和 execution plan。
+Specato 已作为 `0.1` 早期源码预览公开。它的定位是 AI-native、Git-based、SDD-driven 工作空间：人定义规范和边界，可替换的 AI coding assistant 生成并维护 TestCase、API/UI 自动化、runner 集成和 execution plan。
 
 公共仓库目前适合源码审查、独立安装以及 synthetic catalog/report 探索。它**还不是**带 tag 的预览版本、稳定 API、完整 AI 驱动自动化生命周期、远程服务或已发布 npm package。
 

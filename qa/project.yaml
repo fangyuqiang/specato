@@ -1,8 +1,8 @@
 schemaVersion: 1
 
 project:
-  id: qa-workbench-demo
-  name: QA Workbench Demo
+  id: specato-demo
+  name: Specato Demo
   description: Synthetic data used to verify a clean standalone checkout.
 
 modules:

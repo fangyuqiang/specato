@@ -6,7 +6,7 @@
 
 ## Product thesis
 
-QA Workbench is an AI-native, Git-based, specification-driven development (SDD) workspace for API and UI automation testing. Its primary user is an AI coding assistant working from human-authored specifications.
+Specato is an AI-native, Git-based, specification-driven development (SDD) workspace for API and UI automation testing. Its primary user is an AI coding assistant working from human-authored specifications.
 
 It is **not** a single autonomous agent, an agent framework, or a proprietary replacement for established testing tools. Codex, Claude Code, and other repository-capable AI coding assistants drive the engineering workflow by reading versioned contracts, generating test assets and integration code, and invoking explicit tools. The visual Workbench UI gives people a consistent place to observe, review, and trace what happened.
 
@@ -20,7 +20,7 @@ The design goal is to connect mature standards and tools—such as OpenAPI, Araz
 | SDD artifacts | Intent, specifications, acceptance scenarios, TestCases, and execution references | Hidden project conventions |
 | Humans | Define specifications, acceptance intent, policy, and approval boundaries | Manually authoring or coordinating every test artifact |
 | AI coding assistants | Generate TestCases, API/UI automation, adapter changes, and execution plans; invoke supported tools; interpret results | Acting outside repository policy or becoming a hidden source of truth |
-| QA Workbench contracts and tools | Give AI clients a stable workspace for discovery, validation, generation, execution, and evidence linkage | Embedding or locking the workflow to one AI vendor |
+| Specato contracts and tools | Give AI clients a stable workspace for discovery, validation, generation, execution, and evidence linkage | Embedding or locking the workflow to one AI vendor |
 | Core contracts | Normalize catalogs, environments, execution plans, events, and report references | Encoding one product's business language |
 | Existing runners and adapters | Execute API/UI automation through explicit capabilities | Owning product intent or governance |
 | Evidence and report tools | Persist redacted, structured outcomes and native reports | Becoming the source of truth for specifications |
@@ -79,7 +79,7 @@ The specification is an active execution contract rather than passive prose:
 
 ## Integration over reinvention
 
-QA Workbench should add an integration only when it contributes one of these missing cross-tool capabilities:
+Specato should add an integration only when it contributes one of these missing cross-tool capabilities:
 
 - a stable repository contract;
 - safe discovery and normalization;

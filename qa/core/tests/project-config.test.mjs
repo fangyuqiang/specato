@@ -4,7 +4,7 @@ import { assertSafeRelative, loadProjectConfig } from '../project-config.mjs';
 
 test('loads the standalone project manifest', async () => {
   const config = await loadProjectConfig();
-  assert.equal(config.project.name, 'QA Workbench Demo');
+  assert.equal(config.project.name, 'Specato Demo');
   assert.equal(config.modulesById.get('demo')?.group.id, 'examples');
   assert.deepEqual(config.catalog.testcases[0], {
     files: ['examples/demo/testcases/*.md'],

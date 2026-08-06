@@ -4,11 +4,11 @@
 
 # AI Coding Assistant Instructions
 
-This repository is an independent, general-purpose QA Workbench. It does not depend on a source business repository, an adjacent checkout, or private infrastructure.
+This repository is the independent, general-purpose Specato project. It does not depend on a source business repository, an adjacent checkout, or private infrastructure.
 
 ## Product model
 
-- QA Workbench is an AI-native, Git-based, SDD-driven workspace for API and UI automation testing.
+- Specato is an AI-native, Git-based, SDD-driven workspace for API and UI automation testing.
 - Humans define and approve specifications, acceptance intent, policy, and risk boundaries.
 - Codex, Claude Code, and other interchangeable AI coding assistants generate and maintain TestCases, API/UI automation, runner adapters, execution plans, and report integration from those specifications.
 - Repository contracts are the durable interface. Do not make a prompt, one model, hidden agent state, or the visual UI the source of truth.

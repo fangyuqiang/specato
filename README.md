@@ -2,11 +2,15 @@
   <strong>English</strong> | <a href="README.zh-CN.md">简体中文</a>
 </div>
 
-# QA Workbench
+# Specato
 
-QA Workbench is an **AI-native, Git-based, SDD-driven workbench for API and UI automation testing**. Humans define and approve specifications, boundaries, and acceptance intent in Git. Codex, Claude Code, and other repository-capable AI coding assistants turn those specifications into TestCases, API/UI automation, runner integrations, execution plans, and traceable reports.
+> **AI-native, Git-based spec-to-test automation.**
 
-QA Workbench is the AI-facing workspace and contract system for that flow. Its visual UI is the human observation and review window—not the primary place where people manually orchestrate tests. The project integrates mature tools such as OpenAPI, Arazzo, Playwright, and Allure instead of replacing them.
+Specato is an **AI-native, Git-based, SDD-driven workspace for API and UI automation testing**. Humans define and approve specifications, boundaries, and acceptance intent in Git. Codex, Claude Code, and other repository-capable AI coding assistants turn those specifications into TestCases, API/UI automation, runner integrations, execution plans, and traceable reports.
+
+Specato is the AI-facing workspace and contract system for that flow. Its visual Workbench UI is the human observation and review window—not the primary place where people manually orchestrate tests. The project integrates mature tools such as OpenAPI, Arazzo, Playwright, and Allure instead of replacing them.
+
+The name combines **SPEC**ification with **A**utomation, **T**esting, and **O**rchestration. Specifications remain the source of truth while AI produces executable artifacts around established tools.
 
 > **Status:** `0.1` early source preview. The repository is public under Apache-2.0, but stable APIs, remote deployment, package distribution, and executable runner adapters are not yet promised.
 
@@ -20,7 +24,7 @@ Codex / Claude Code / other AI coding assistants
 generate TestCases, API/UI automation, and integration changes
                               │
                               ▼
-QA Workbench validates contracts and coordinates existing runners
+Specato validates contracts and coordinates existing runners
                               │
                               ▼
 Playwright / API tools / other execution engines
@@ -32,9 +36,9 @@ Structured evidence + Allure and native reports
 Humans observe, review, and approve changes
 ```
 
-The AI client is replaceable; the durable interface is the Git repository. QA Workbench is not a single embedded agent or a new test framework. See the [AI-native SDD operating model](docs/ai-native-sdd.md).
+The AI client is replaceable; the durable interface is the Git repository. Specato is not a single embedded agent or a new test framework. See the [AI-native SDD operating model](docs/ai-native-sdd.md).
 
-## Why QA Workbench
+## Why Specato
 
 - Keep specifications, TestCases, and review history in Git.
 - Normalize modules, API operations, workflows, and scenarios into one searchable catalog.
@@ -71,7 +75,7 @@ Executable examples must use fictional names, synthetic data, and loopback or mo
 ## Repository layout
 
 ```text
-qa-workbench/
+specato/
 ├─ qa/                    # Project manifest, core modules, and Workbench
 ├─ examples/              # Synthetic OAS, Arazzo, and TestCase fixtures
 ├─ docs/                  # Architecture, security, and project governance
@@ -126,12 +130,12 @@ English is the default documentation language. Every maintained project document
 
 ## Contributing
 
-QA Workbench favors small, reviewable changes that strengthen reusable contracts. Before contributing, read the [architecture](docs/architecture.md), [publication boundary](docs/publication-boundary.md), and [contribution guide](CONTRIBUTING.md).
+Specato favors small, reviewable changes that strengthen reusable contracts. Before contributing, read the [architecture](docs/architecture.md), [publication boundary](docs/publication-boundary.md), and [contribution guide](CONTRIBUTING.md).
 
 Do not disclose security issues in public issues. Follow [SECURITY.md](SECURITY.md).
 
 ## License and distribution
 
-QA Workbench source code is licensed under the [Apache License 2.0](LICENSE). Third-party components remain subject to the licenses and copyrights of their locked versions. Source copied or generated into this repository is documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Specato source code is licensed under the [Apache License 2.0](LICENSE). Third-party components remain subject to the licenses and copyrights of their locked versions. Source copied or generated into this repository is documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 The project currently distributes source only. It does not publish `node_modules`, third-party binaries, containers, offline dependency bundles, or npm packages. The root package remains `private: true` to prevent accidental publication. If the distribution model changes, notices and license obligations must be recalculated against the actual shipped artifact.

@@ -12,8 +12,8 @@ node_modules/
 /blob-report/
 *.log
 
-# QA Workbench runtime output
-.qa-workbench/
+# Specato runtime output
+.specato/
 .playwright-cli/
 qa/.runtime/
 qa/output/

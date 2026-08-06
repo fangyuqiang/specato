@@ -6,7 +6,7 @@
 
 ## Positioning
 
-QA Workbench is an AI-native, Git-based, SDD-driven workspace for API and UI automation testing. Humans define specifications, acceptance intent, and policy boundaries. Interchangeable AI coding assistants generate TestCases, API/UI automation, adapter changes, and execution plans from that source of truth. Established runners execute the plans, while the visual Workbench UI lets people observe and review the resulting state.
+Specato is an AI-native, Git-based, SDD-driven workspace for API and UI automation testing. Humans define specifications, acceptance intent, and policy boundaries. Interchangeable AI coding assistants generate TestCases, API/UI automation, adapter changes, and execution plans from that source of truth. Established runners execute the plans, while the visual Workbench UI lets people observe and review the resulting state.
 
 The project is not an embedded autonomous agent and does not replace Git, OpenAPI, Arazzo, Playwright, Allure, or an AI coding assistant. See the [AI-native SDD operating model](ai-native-sdd.md) for the role boundaries.
 
@@ -16,7 +16,7 @@ The project is not an embedded autonomous agent and does not replace Git, OpenAP
 - **Specifications drive behavior.** Runtime work traces back to explicit, testable artifacts.
 - **AI clients are replaceable drivers.** Codex, Claude Code, and other tools use the same repository contracts.
 - **Existing tools do the execution.** Adapters integrate mature runners and report systems instead of reimplementing them.
-- **QA Workbench is AI-facing.** Repository contracts and tools are the primary work surface for AI-driven generation and execution.
+- **Specato is AI-facing.** Repository contracts and tools are the primary work surface for AI-driven generation and execution.
 - **Workbench UI is an observation plane.** The visual UI presents catalogs, configuration state, evidence, and reports to humans; it is not the primary orchestration surface.
 - **Project knowledge stays project-side.** The public core does not learn private product concepts.
 

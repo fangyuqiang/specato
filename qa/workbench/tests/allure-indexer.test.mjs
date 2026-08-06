@@ -6,7 +6,7 @@ import test from 'node:test';
 import { buildProjectAllureIndex } from '../src/server/services/allure-indexer.mjs';
 
 test('recognizes TestCase references from the project catalog', async (t) => {
-  const resultsRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'qa-workbench-allure-'));
+  const resultsRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'specato-allure-'));
   t.after(() => fs.rm(resultsRoot, { recursive: true, force: true }));
   const apiRoot = path.join(resultsRoot, 'api');
   await fs.mkdir(apiRoot, { recursive: true });

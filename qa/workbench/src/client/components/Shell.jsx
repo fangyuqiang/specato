@@ -29,9 +29,9 @@ export function Shell({ active, setActive, children }) {
     <div className="app">
       <header className="topbar">
         <div className="brand">
-          <div className="brand-mark">QA</div>
+          <div className="brand-mark">S</div>
           <div>
-            <strong>QA Workbench</strong>
+            <strong>Specato</strong>
           </div>
         </div>
         <nav className="top-nav">

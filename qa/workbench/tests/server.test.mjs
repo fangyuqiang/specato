@@ -32,6 +32,6 @@ test('serves only synthetic catalog data and rejects traversal', async (t) => {
 
 test('requires an explicit opt-in for non-loopback binding', () => {
   assert.doesNotThrow(() => validateHost('127.0.0.1', false));
-  assert.throws(() => validateHost('0.0.0.0', false), /QA_WORKBENCH_ALLOW_REMOTE=1/);
+  assert.throws(() => validateHost('0.0.0.0', false), /SPECATO_ALLOW_REMOTE=1/);
   assert.doesNotThrow(() => validateHost('0.0.0.0', true));
 });

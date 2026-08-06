@@ -6,7 +6,7 @@
 
 ## Supported versions
 
-QA Workbench is a `0.x` early source preview. Security fixes are maintained on the latest `main` branch only; there is no fixed support window for older commits or unpublished packages.
+Specato is a `0.x` early source preview. Security fixes are maintained on the latest `main` branch only; there is no fixed support window for older commits or unpublished packages.
 
 Issues that could expose credentials, bypass path or execution boundaries, enable arbitrary command execution, or contaminate evidence are treated as high priority even during the preview phase.
 

@@ -2,9 +2,9 @@
   <a href="README.md">English</a> | <strong>简体中文</strong>
 </div>
 
-# QA Workbench 文档
+# Specato 文档
 
-本目录将 QA Workbench 定义为一个 **AI-native、Git-based、SDD-driven 的 API/UI 自动化测试解决方案**。
+本目录将 Specato 定义为一个 **AI-native、Git-based、SDD-driven 的 API/UI 自动化测试解决方案**。
 
 英文是默认语言。每份持续维护的文档都有一个命名为 `*.zh-CN.md` 的简体中文镜像；每次变更必须同步更新两份文件。
 

@@ -6,7 +6,7 @@
 
 ## Current assessment
 
-QA Workbench is publicly available as a `0.1` early source preview. It is positioned as an AI-native, Git-based, SDD-driven workspace in which humans define specifications and boundaries while interchangeable AI coding assistants generate and maintain TestCases, API/UI automation, runner integrations, and execution plans.
+Specato is publicly available as a `0.1` early source preview. It is positioned as an AI-native, Git-based, SDD-driven workspace in which humans define specifications and boundaries while interchangeable AI coding assistants generate and maintain TestCases, API/UI automation, runner integrations, and execution plans.
 
 The public repository is ready for source inspection, independent installation, and synthetic catalog/report exploration. It is **not** yet a tagged preview release, a stable API, a complete AI-driven automation lifecycle, a remote service, or a published npm package.
 

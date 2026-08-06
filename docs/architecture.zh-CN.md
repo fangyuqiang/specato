@@ -6,7 +6,7 @@
 
 ## 定位
 
-QA Workbench 是面向 API/UI 自动化测试的 AI-native、Git-based、SDD-driven 工作空间。人定义规范、验收意图和策略边界；可替换的 AI coding assistant 根据事实来源生成 TestCase、API/UI 自动化、adapter 变更和 execution plan；成熟 runner 执行计划；可视化 Workbench UI 供人观察和复核结果状态。
+Specato 是面向 API/UI 自动化测试的 AI-native、Git-based、SDD-driven 工作空间。人定义规范、验收意图和策略边界；可替换的 AI coding assistant 根据事实来源生成 TestCase、API/UI 自动化、adapter 变更和 execution plan；成熟 runner 执行计划；可视化 Workbench UI 供人观察和复核结果状态。
 
 项目不是内置自治 Agent，也不替代 Git、OpenAPI、Arazzo、Playwright、Allure 或 AI coding assistant。角色边界见 [AI-native SDD 运行模型](ai-native-sdd.zh-CN.md)。
 
@@ -16,7 +16,7 @@ QA Workbench 是面向 API/UI 自动化测试的 AI-native、Git-based、SDD-dri
 - **规范驱动行为。** 运行工作必须追溯到显式、可测试资产。
 - **AI client 是可替换的驱动者。** Codex、Claude Code 等工具使用相同仓库契约。
 - **既有工具负责执行。** Adapter 集成成熟 runner 和报告系统，不重新实现它们。
-- **QA Workbench 面向 AI。** 仓库契约和工具是 AI 驱动生成与执行的主要工作界面。
+- **Specato 面向 AI。** 仓库契约和工具是 AI 驱动生成与执行的主要工作界面。
 - **Workbench UI 是观察面。** 可视化 UI 向人展示 catalog、配置状态、证据和报告，不是主要编排界面。
 - **项目知识留在项目侧。** 公共核心不学习私有产品概念。
 

@@ -1,19 +1,19 @@
 {
-  "name": "qa-workbench",
+  "name": "specato",
   "version": "0.1.0",
   "private": true,
   "license": "Apache-2.0",
   "type": "module",
-  "description": "Git-native, spec-to-test QA workbench.",
+  "description": "AI-native, Git-based, spec-to-test automation workspace.",
   "packageManager": "pnpm@10.34.5",
   "scripts": {
-    "dev": "pnpm --filter @qa-workbench/app run dev",
-    "start": "pnpm --filter @qa-workbench/app run start",
-    "build": "pnpm --filter @qa-workbench/app run build",
-    "test": "node --test qa/core/tests/*.test.mjs && pnpm --filter @qa-workbench/app run test",
+    "dev": "pnpm --filter @specato/app run dev",
+    "start": "pnpm --filter @specato/app run start",
+    "build": "pnpm --filter @specato/app run build",
+    "test": "node --test qa/core/tests/*.test.mjs && pnpm --filter @specato/app run test",
     "verify": "pnpm run test && pnpm run build",
     "audit:repository": "node scripts/repository-audit.mjs",
-    "report": "pnpm --filter @qa-workbench/app run report"
+    "report": "pnpm --filter @specato/app run report"
   },
   "dependencies": {
     "fast-glob": "3.3.3",

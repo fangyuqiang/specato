@@ -6,7 +6,7 @@
 
 ## Product direction
 
-QA Workbench aims to become an AI-native, Git-based, SDD-driven API and UI automation testing solution.
+Specato aims to become an AI-native, Git-based, SDD-driven API and UI automation testing solution.
 
 Humans define specifications, acceptance intent, and policy boundaries. Codex, Claude Code, and other interchangeable AI coding assistants translate that source of truth into TestCases, API/UI automation, runner integrations, execution plans, and report integration. The visual Workbench UI lets people observe, review, and approve the resulting state.
 

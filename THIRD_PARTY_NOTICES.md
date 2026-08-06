@@ -4,7 +4,7 @@
 
 # Third-Party Source Notices
 
-This file covers third-party source distributed in the QA Workbench repository. npm dependencies downloaded by users through `pnpm install` are not copied into this source repository and remain subject to the licenses included with their locked versions.
+This file covers third-party source distributed in the Specato repository. npm dependencies downloaded by users through `pnpm install` are not copied into this source repository and remain subject to the licenses included with their locked versions.
 
 ## shadcn/ui
 
