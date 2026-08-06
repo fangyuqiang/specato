@@ -6,15 +6,41 @@
 
 > **AI 原生、Git 驱动、从规范到测试自动化。**
 
-Specato 是一个 **AI-native、Git-based、SDD-driven 的 API/UI 自动化测试工作空间**。人负责在 Git 中定义和审批规范、边界与验收意图；Codex、Claude Code 等具备仓库操作能力的 AI coding assistant 根据规范生成 TestCase、API/UI 自动化、runner 集成、execution plan 和可追溯报告。
+AI 已经让 TestCase 和自动化代码的生成变得非常容易。但只有生成，并不能形成可靠的测试体系。真正困难的是：如何让 AI 的产出始终受意图约束、能被全局理解、可以持续审查、不需要人工接力就能执行，并最终追溯到结果证据。
 
-Specato 是这条流程面向 AI 的工作空间和契约系统。它的可视化 Workbench UI 是面向人的观察与复核窗口，不是让人手工编排测试的主要入口。项目集成 OpenAPI、Arazzo、Playwright、Allure 等成熟工具，而不是替代它们。
+Specato 是我们对这个问题的回答：一个面向 API/UI 自动化测试的 **AI-native、Git-based、SDD-driven 解决方案**。它与其说是另一个测试框架，不如说是一套开放的解决方案架构和参考实现，用来把规范、Git、AI coding assistant、命令行 runner、执行证据和报告连接成一条连续链路。
 
-名称由 **SPEC**ification 与 **A**utomation、**T**esting、**O**rchestration 组合而成。规范始终是事实来源，AI 围绕成熟工具生成可执行资产。
+## 问题不只是如何生成
 
-> **当前状态：** `0.1` 早期源码预览。仓库已按 Apache-2.0 公开，但尚未承诺稳定 API、远程部署、package 分发或可执行 runner adapter。
+AI 生成的测试要成为可维护的工程体系，通常会在三个地方断开：
 
-## 运行模型
+- **只依靠 prompt 生成，会丢失原始意图。** 如果没有持久契约，随着 prompt、模型和上下文变化，生成的 TestCase 与自动化会不断漂移。
+- **以数据库为中心的管理，对 AI 默认是不透明的。** 传统测试管理产品把用例和元数据保存在数据库与产品 UI 后面。集成或许能取回局部信息，但 AI 很难像读取源码仓库一样，自然获得全局结构、历史、关联关系和 diff。
+- **只能通过 GUI 执行，流程会停在生成阶段。** 如果测试工具仍然依赖人工操作，AI 即使写出了自动化，也无法通过同一条工程链路可靠地校验、执行并解释结果。
+
+## 三个设计选择
+
+### 1. 用 Spec 约束生成
+
+经过人确认的规范和验收边界是事实来源。AI 不能只根据一次性的 prompt 生成：每一份 TestCase、API/UI 自动化变更、execution plan 和结果引用，都应该来源于版本化规范，并且能够反向追溯。
+
+因此，规范不是背景文档，而是主动的工程契约。它让不同 AI client 获得一致意图，约束 AI 可以改变什么，也让所有生成结果有记录可循、可以解释和审查。
+
+### 2. 用 Git 管理测试资产
+
+需要长期保存的测试资产以 AI 可读文件的形式进入 Git，而不是只作为记录保存在不透明的应用数据库中。AI coding assistant 可以读取完整项目结构、跟踪引用、比较历史、提出 diff，并通过与人相同的审查边界协作。
+
+Git 由此成为规范、TestCase、自动化、manifest 和执行引用的共享记忆与控制面。分支、commit 和 review 构成审计轨迹，不依赖隐藏的 Agent 记忆或某个供应商的平台状态。
+
+### 3. 执行工具必须 CLI-first
+
+要进入核心流程，每个执行工具和 adapter 都必须能通过命令行非交互调用，并提供明确的输入、输出、退出状态和失败行为。同一条命令链路应该同时可供 AI coding assistant、开发者和 CI 使用。
+
+CLI-first 不代表不需要 UI。Workbench UI 是给人观察和复核的界面；命令行才是稳定的自动化边界，让 AI 能从生成继续进入校验、执行与结果解释。
+
+这三个选择共同把 **Spec + Git + CLI** 连接起来，使 AI 不再只是测试代码生成器，而能参与从规范到证据的完整链路。
+
+## 从规范到证据
 
 ```text
 人在 Git 中定义规范与验收边界
@@ -36,15 +62,22 @@ Playwright / API 工具 / 其他执行引擎
 人观察、复核并批准变更
 ```
 
-AI client 可以替换，持久接口是 Git 仓库。Specato 不是单一内置 Agent，也不是新测试框架。详见 [AI-native SDD 运行模型](docs/ai-native-sdd.zh-CN.md)。
+AI client 可以替换，持久接口是版本化仓库契约和显式命令。生成资产、执行引用和经过审查的变更都能指回来源规范，因此整条链路始终可以检查和追溯。
 
-## 为什么需要 Specato
+## 这套方法带来的特性
 
-- 用 Git 管理规范、TestCase 和审查历史。
-- 将模块、API operation、workflow 和 scenario 归一化为统一的可搜索目录。
-- 通过 manifest、provider 和 runner adapter 隔离项目特有行为。
-- 让执行证据和报告可追溯到来源规范与 TestCase。
-- 为 AI coding assistant 提供稳定的生成和执行工作空间，同时让人统一查看规范、计划、证据和报告。
+- **生成可追溯：** 每一份生成资产都有可审查的意图来源。
+- **AI 获得仓库级全局上下文：** 规范、TestCase、自动化和历史可以被一起读取。
+- **模型与工具可替换：** Codex、Claude Code 或其他具备仓库能力的 AI client 使用相同契约。
+- **本机与 CI 使用同一条执行路径：** AI、开发者和流水线调用相同的 CLI runner。
+- **集成优先，而不是重新造轮子：** OpenAPI、Arazzo、Markdown TestCase、Playwright、Allure 等成熟工具继续承担各自职责。
+- **人在正确的层次保持控制：** 人定义意图、策略和审批边界，并观察规范、变更、证据与报告。
+
+Specato 不是单一内置 Agent、数据库优先的测试管理平台，也不是用私有实现替代现有 runner。这个开源仓库是上述整合思路的参考实现：用稳定契约服务 AI，用成熟工具负责执行，用 Workbench 供人观察。详见 [AI-native SDD 运行模型](docs/ai-native-sdd.zh-CN.md)。
+
+名称由 **SPEC**ification 与 **A**utomation、**T**esting、**O**rchestration 组合而成。
+
+> **当前状态：** `0.1` 早期源码预览。当前仓库已经实现 SDD 控制基础和观察层；完整的 AI 生成契约、共享的可执行 runner adapter，以及端到端自动化生命周期仍属于路线图工作。
 
 ## 当前能力
 
