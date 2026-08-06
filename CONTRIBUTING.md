@@ -1,60 +1,95 @@
-# 参与贡献
+<div align="right">
+  <strong>English</strong> | <a href="CONTRIBUTING.zh-CN.md">简体中文</a>
+</div>
 
-QA Workbench 处于早期预览阶段。贡献目标是保持仓库可独立安装、可验证且不携带不可公开资产，而不是快速堆叠功能。
+# Contributing to QA Workbench
 
-## 开始之前
+QA Workbench is an early source preview. Contributions should keep the repository independently installable, verifiable, and free of private project assets. Reusable contracts are more valuable than fast accumulation of project-specific features.
 
-1. 阅读 [架构说明](docs/architecture.md)、[公开内容边界](docs/publication-boundary.md) 和 [安全策略](SECURITY.md)。
-2. 确认变更不依赖任何相邻仓库、个人机器路径或非公开运行环境。
-3. 涉及新接口或行为变化时，先更新仓库内的规范和可验证场景。
-4. 安全问题不要提交公开 issue，按 `SECURITY.md` 私下报告。
+## Before you start
 
-## 本地开发
+1. Read the [architecture](docs/architecture.md), [publication boundary](docs/publication-boundary.md), and [security policy](SECURITY.md).
+2. Confirm that the change does not depend on an adjacent repository, personal workstation path, private runtime, or organization-specific convention.
+3. Update the relevant specification and verifiable scenario before changing a public contract or observable behavior.
+4. Do not disclose a vulnerability in a public issue. Follow [SECURITY.md](SECURITY.md).
 
-仓库进入可运行状态后，标准开发流程为：
+For a substantial contract change, open a focused discussion or proposal that explains the use case, alternatives, compatibility impact, and synthetic verification plan before implementation.
+
+## Development setup
+
+Prerequisites:
+
+- Node.js `>=20.19`
+- Corepack
+- pnpm `10.34.5` as pinned by the root `packageManager`
+
+Install and verify:
 
 ```powershell
 corepack enable
 pnpm install --frozen-lockfile
-pnpm test
-pnpm build
+pnpm run verify
 ```
 
-如果某个 package 有额外命令，以该 package 的 `package.json` 和 README 为准。不要把个人机器路径、代理地址、测试身份或 secret 写入脚本来让测试通过。
+Use the scripts in the root `package.json` as the source of truth. Never add a personal path, proxy, test identity, or secret to a script merely to make verification pass.
 
-## 设计约束
+## Design constraints
 
-- 核心代码只表达通用概念；项目特有行为放入 provider、adapter 或项目清单。
-- 优先扩展已有契约，避免仅为一个接入方复制一套平行流程。
-- 默认行为必须能由仓库内的合成示例验证。
-- 环境变量只用于注入值；代码和示例只记录变量名及其用途。
-- 错误信息应说明缺少什么以及如何修复，但不得回显密钥。
-- 新依赖需要说明用途、维护状态和许可证影响；复制或生成到仓库内的第三方源码还必须记录准确的上游 revision。
+- Keep the core limited to reusable concepts; project-specific behavior belongs in a manifest, provider, or adapter.
+- Extend an existing contract when its semantics fit. Do not create a parallel flow for one integration.
+- Make default behavior verifiable with repository-owned synthetic fixtures.
+- Store only environment variable names or secret references, never secret values.
+- Fail with actionable diagnostics without echoing credentials or sensitive input.
+- Explain the purpose, maintenance status, and license effect of every new dependency.
+- Record the exact upstream revision for newly copied or generated third-party source.
 
-## 测试与证据
+## Tests and evidence
 
-每个变更至少覆盖与风险相称的验证：
+Match verification to the risk of the change:
 
-- 纯函数或契约变化：单元测试；
-- provider / adapter：合成 fixture 和失败路径测试；
-- 工作台交互：关键流程的组件或端到端测试；
-- 报告格式：结构断言及脱敏断言；
-- 路径或打包变化：在独立临时 clone 中验证，不能依赖相邻工作树。
+| Change | Minimum evidence |
+| --- | --- |
+| Pure function or contract | Unit tests for success and failure paths |
+| Provider or adapter | Synthetic fixture and preflight/failure tests |
+| Workbench interaction | Relevant component or end-to-end flow |
+| Report format or evidence | Structure and redaction assertions |
+| Path, package, or release rule | Verification from an isolated checkout |
 
-测试 fixture 必须是人工构造或可证明可公开的数据。不要通过“脱敏后复制”来默认绕过公开内容边界；无法确认来源时，重新构造最小 fixture。
+Fixtures must be authored from scratch or have a demonstrably public source. Renaming or partially redacting a real asset is not sufficient. When provenance is uncertain, create a minimal synthetic fixture instead.
 
-## 提交变更
+## Documentation policy
 
-变更提案应简要说明：
+English is the default language for maintained project documentation. When changing a document, update its Simplified Chinese counterpart in the same change and keep the language switch at the top of both files.
 
-- 改了什么、为什么改；
-- 对已有契约的影响；
-- 风险和回归点；
-- 已执行的测试及结果；
-- 是否新增或改变数据、网络、secret、许可证边界。
+- Default file: `name.md`
+- Simplified Chinese mirror: `name.zh-CN.md`
+- `README.md` links to `README.zh-CN.md`; the Chinese README links back.
+- Legal license texts remain in their official language and must not be rewritten as a translation.
+- Executable Markdown fixtures under `examples/` are test inputs, not translated documentation.
 
-保持提交聚焦，不混入格式化全仓、生成文件或与目标无关的重构。生成报告、运行时缓存和本机配置不应提交。
+## Submitting a change
 
-## 发布门槛
+Keep each change focused. Do not mix repository-wide formatting, generated files, or unrelated refactoring into the same submission.
 
-发布源码版本前，维护者必须完成公开内容审计、依赖许可证审计、secret 与 Git 历史扫描以及独立 clone 验证。源码发布不包含 `node_modules`、构建产物或未登记的 vendored dependency；若发布形态改变，必须重新评估实际分发组件的许可证义务。
+The description should include:
+
+- what changed and why;
+- affected public contracts or compatibility expectations;
+- security, data, network, secret, and license effects;
+- tests and audits that were run, including any skipped checks;
+- documentation pairs that were updated.
+
+Before submission, run:
+
+```powershell
+pnpm install --frozen-lockfile
+pnpm run verify
+pnpm audit --prod --audit-level moderate
+pnpm run audit:repository
+```
+
+Maintainers must additionally run proprietary-residue, secret, dependency-license, Git-history, and large-file scans before publishing a source release.
+
+## Distribution boundary
+
+The current project distributes source only. Do not commit `node_modules`, bundles, containers, generated reports, runtime caches, or unregistered vendored dependencies. If a change adds a shipped binary, bundle, generated source snapshot, or offline dependency, reassess notices and license obligations against the actual artifact.

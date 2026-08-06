@@ -1,13 +1,19 @@
+<div align="right">
+  <strong>English</strong> | <a href="THIRD_PARTY_NOTICES.zh-CN.md">简体中文</a>
+</div>
+
 # Third-Party Source Notices
 
-本文件只记录随 QA Workbench 源码仓库一起分发的第三方源码。通过 `pnpm install` 下载的 npm 依赖不包含在本仓库中，并继续适用各自版本附带的许可证。
+This file covers third-party source distributed in the QA Workbench repository. npm dependencies downloaded by users through `pnpm install` are not copied into this source repository and remain subject to the licenses included with their locked versions.
 
 ## shadcn/ui
 
-- Upstream: <https://github.com/shadcn-ui/ui>
-- License: MIT
-- Scope: `qa/workbench/components.json`、`qa/workbench/src/components/ui/`、`qa/workbench/src/lib/utils.js`，以及相关 UI 样式的生成或改写部分
-- Provenance: 初始源码快照没有记录上游版本或 commit；后续同步必须在变更说明中记录准确的上游 revision
+- **Upstream:** <https://github.com/shadcn-ui/ui>
+- **License:** MIT
+- **Scope:** generated or adapted portions under `qa/workbench/components.json`, `qa/workbench/src/components/ui/`, `qa/workbench/src/lib/utils.js`, and related UI styles
+- **Provenance:** the initial source snapshot did not record an upstream version or commit and is therefore marked `unknown`; every future synchronization must record the exact upstream revision in the change description
+
+The following upstream license text applies to the scoped source:
 
 MIT License
 

@@ -1,60 +1,68 @@
-# 安全策略
+<div align="right">
+  <strong>English</strong> | <a href="SECURITY.zh-CN.md">简体中文</a>
+</div>
 
-## 当前支持状态
+# Security Policy
 
-QA Workbench 当前是 `0.x` 早期预览，只维护最新源码版本，暂不承诺固定的安全修复期限。维护者仍会把任何可能导致密钥泄漏、越权执行、任意命令执行或证据污染的问题视为高优先级。
+## Supported versions
 
-## 报告安全问题
+QA Workbench is a `0.x` early source preview. Security fixes are maintained on the latest `main` branch only; there is no fixed support window for older commits or unpublished packages.
 
-请优先使用代码托管平台为本仓库提供的私密漏洞报告能力。若该能力不可用，可在公开 issue 中仅请求安全联系方式，不要披露漏洞细节、真实凭据或可利用样例。
+Issues that could expose credentials, bypass path or execution boundaries, enable arbitrary command execution, or contaminate evidence are treated as high priority even during the preview phase.
 
-报告中建议包含：
+## Reporting a vulnerability
 
-- 受影响的 commit 或版本；
-- 最小复现步骤和预期影响；
-- 是否涉及真实 secret、业务数据或外部系统；
-- 已采取的临时隔离措施。
+Use the hosting platform's private vulnerability reporting feature for this repository when it is available. If no private channel is enabled, open a public issue only to request a secure contact method. Do not include vulnerability details, credentials, private endpoints, or a working exploit in a public issue.
 
-请使用合成数据复现。若 secret 已暴露，应先吊销或轮换，再讨论代码修复。
+A useful report includes:
 
-## 安全边界
+- the affected commit or version;
+- minimal reproduction steps using synthetic data;
+- the expected security impact;
+- whether a real secret, private dataset, or external system may be involved;
+- temporary containment already applied.
 
-### 本地工作台
+If a secret has been exposed, revoke or rotate it before discussing code remediation. Do not attach real credentials or production evidence to the report.
 
-- 默认仅绑定 `127.0.0.1` / `::1`。
-- 不得假设“内网可访问”等于安全；开放远程监听前必须另行设计认证、授权、CSRF 和审计。
-- 浏览器可见的配置接口不得返回环境变量值或 secret value。
+## Security boundaries
 
-### 配置与凭据
+### Local Workbench
 
-- 仓库只保存 `.env.example`、环境变量名或 secret reference。
-- `.env`、私钥、证书私钥、token、Cookie、数据库 dump 和测试账号资料禁止提交。
-- 缺少必需配置时，应在执行网络调用或测试命令前失败。
-- 子进程调用应使用参数数组和 allowlist，避免拼接可执行 shell 字符串。
+- The default bind address is loopback (`127.0.0.1` / `::1`).
+- Network reachability is not authentication. Remote listening requires a separate design for authentication, authorization, CSRF protection, and audit logging.
+- Browser-visible configuration APIs must not return environment variable values or secret values.
 
-### 执行器与外部输入
+### Configuration and credentials
 
-- TestCase、OpenAPI、Arazzo 和项目清单均视为不可信输入。
-- 路径必须规范化并限制在允许的 workspace 内，禁止目录穿越。
-- runner adapter 只能执行显式允许的命令和参数。
-- 外部贡献的自动化验证不得获得组织 secret，也不得访问真实测试环境。
+- The repository may store `.env.example`, environment variable names, or secret references only.
+- `.env` files, private keys, private certificates, tokens, cookies, database dumps, and test-account material must not be committed.
+- Missing required configuration must fail before a network request or test process starts.
+- Subprocesses must use argument arrays and allowlists instead of interpolated shell strings.
 
-### 日志、证据与报告
+### Runners and external input
 
-- 写盘和展示前，对 Authorization、Cookie、token、密码、签名、个人数据和内部地址执行脱敏。
-- 报告不得默认保存完整请求体、响应体或浏览器 storage state。
-- 运行时产物应写入被 `.gitignore` 排除的目录，并设置合理的保留周期。
+- TestCase, OpenAPI, Arazzo, and project manifests are untrusted input.
+- Paths must be normalized, allowlisted, and contained by realpath checks.
+- Runner adapters may execute only explicitly supported commands and arguments.
+- Automation from external contributors must not receive organization secrets or access real test environments.
 
-## 源码发布安全门槛
+### Logs, evidence, and reports
 
-任何 SQL、真实 OAS / Arazzo、UI baseline、真实 TestCase、密钥、环境身份、非公开基础设施标识或业务素材进入本仓库，都应阻断发布并清理 Git 历史中的对应对象。
+- Redact Authorization, Cookie, token, password, signature, personal-data, and internal-address fields before persistence or display.
+- Reports must not retain complete request/response bodies or browser storage state by default.
+- Runtime output belongs in ignored directories with an explicit retention policy.
+- If redaction or containment cannot be proven, fail closed and do not write the artifact.
 
-公开前至少执行：
+## Source publication gates
 
-- secret scanning 和 Git 历史扫描；
-- 禁止内容和业务标识审计；
-- 依赖漏洞及许可证审计；
-- 在隔离目录中的全新 clone、安装、测试和构建；
-- Apache-2.0 文件和依赖许可证策略复核。
+A release must be blocked if SQL, real specifications, real TestCases, screenshot baselines, traces, HAR files, credentials, environment identities, private infrastructure identifiers, or business assets enter the candidate tree or its publishable history.
 
-安全门槛的详细清单见 [docs/publication-boundary.md](docs/publication-boundary.md)。
+At minimum, maintainers must run:
+
+- secret scanning on the candidate tree and publishable Git history;
+- private-identifier, forbidden-file, and large-file audits;
+- dependency vulnerability and license audits;
+- frozen installation, tests, and production build from an isolated checkout;
+- license and third-party source notice review.
+
+See the [publication boundary](docs/publication-boundary.md) for the complete checklist.

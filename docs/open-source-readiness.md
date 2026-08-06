@@ -1,49 +1,56 @@
-# 开源准备度
+<div align="right">
+  <strong>English</strong> | <a href="open-source-readiness.zh-CN.md">简体中文</a>
+</div>
 
-## 当前判断
+# Open-Source Readiness
 
-QA Workbench 采用“通用核心 + 项目清单 + 项目侧 adapter”的产品边界，并按 Apache-2.0 发布源码。当前定位是 `0.1` 早期预览候选：可以进入公开源码发布准备，但尚未承诺稳定 API、远程部署或 npm package。
+## Current assessment
 
-## 已完成
+QA Workbench is publicly available as a `0.1` early source preview. It is positioned as an AI-native, Git-based, SDD-driven workspace in which humans define specifications and boundaries while interchangeable AI coding assistants generate and maintain TestCases, API/UI automation, runner integrations, and execution plans.
 
-- 通用 catalog、TestCase、environment 与 Workbench 不依赖固定业务目录；TestCase ID 不再绑定 capability 前缀。
-- 默认仓库只包含 synthetic OAS、Arazzo 和 TestCase。
-- 文件接口具备 manifest 白名单、路径规范化、realpath 和 symlink 逃逸保护。
-- 报告目录使用固定根目录，并具备 realpath 和 symlink 逃逸保护；报告索引只保留 API/UI 的 Allure 2 JSON 与 Playwright HTML。
-- server URL 禁止携带 userinfo、query 和 fragment；环境摘要不返回 secret value。
-- Workbench 默认只允许 loopback；非 loopback 绑定需要显式 opt-in。
-- 默认验证不依赖 Docker、数据库、真实环境或私密凭据。
-- 已加入 Apache-2.0；根 package 保持 `private: true`，明确只发布源码。
-- 已为随源码分发的 shadcn/ui 生成组件保留 MIT 声明；初始快照未记录上游 revision，已如实标记 unknown，后续同步必须补充准确来源。
-- 当前生产依赖只包含宽松许可证或可选择宽松分支的许可证，没有 GPL、LGPL、AGPL 或 SSPL。
-- CodeGraph 已初始化，本机索引数据库不会进入 Git。
+The public repository is ready for source inspection, independent installation, and synthetic catalog/report exploration. It is **not** yet a tagged preview release, a stable API, a complete AI-driven automation lifecycle, a remote service, or a published npm package.
 
-## 首次公开前仍需完成
+## Delivered and verified
 
-1. 当前工作树候选已移除已知专有标识；现有 Git 历史仍含来源项目、非公开设施和个人提交身份，不能直接推送到公开仓库，首次发布必须从验收后的当前树创建干净根提交。
-2. 从候选 commit 建立独立 clone，执行冻结安装、测试、构建和启动验证。
-3. 在干净根提交形成后重新执行 Gitleaks 当前树与完整历史扫描。
-4. 固定与托管平台无关的安全报告和贡献渠道。
-5. 对 Scalar 等 `0.x` 关键依赖建立升级验证和 bundle budget。
+- Standalone repository with no dependency on a source business repository, neighboring checkout, or private infrastructure.
+- Clean public Git history created from an audited source tree.
+- Manifest-driven OpenAPI, Arazzo, TestCase, environment, and report discovery.
+- Stable TestCase IDs independent of fixed capability prefixes or private directory conventions.
+- Local Workbench UI for observing catalogs, configuration readiness, approved source files, and reports.
+- Manifest allowlists, normalized paths, realpath checks, and symlink-escape tests for repository and report files.
+- Loopback-only default binding with an explicit opt-in for non-loopback use.
+- Synthetic OAS, Arazzo, TestCase, and unit-test assets only.
+- Frozen installation, 15 unit/integration tests, production build, dependency vulnerability audit, repository audit, and clean-history secret scan completed for the initial public source snapshot.
+- Apache-2.0 source license and MIT notice for the shadcn/ui-generated source distributed in the repository.
+- Production dependencies limited to permissive or dual-permissive license choices; no GPL, LGPL, AGPL, or SSPL dependency was found in the audited lockfile.
+- English-default documentation with synchronized Simplified Chinese mirrors.
+- CodeGraph initialized locally while its database remains excluded from Git.
 
-源码发布不携带 `node_modules`、bundle、容器或第三方二进制，因此 npm 依赖 notices 不是当前发布阻断项；仓库内 shadcn/ui 生成源码的 MIT 声明已单独保留。若以后改变发布形态，应按最终产物重新生成第三方许可证清单和 SBOM。
+## Gate status
 
-分阶段交付范围、发布门禁和退出条件见 [开源路线图](open-source-roadmap.md)。公开内容规则见 [公开内容边界](publication-boundary.md)。
+| Gate | Status | Evidence or remaining gap |
+| --- | --- | --- |
+| G0 Public content | Met for current source | Synthetic assets, repository audit, clean public history, and publication policy |
+| G1 Reproducibility | Met for current source | Frozen install, tests, and build from an isolated checkout |
+| G2 Security | Partial | Current path, URL, loopback, and secret boundaries are tested; runner sandboxing and the complete redaction pipeline do not yet exist |
+| G3 AI-driven execution | Not met | Generation contracts, `ExecutionPlan`, runner adapters, and synthetic API/UI end-to-end execution remain unimplemented |
+| G4 Licensing | Met for source-only distribution | Apache-2.0, locked dependency audit, and vendored-source notice |
+| G5 Governance | Partial | Contribution, security, publication, bilingual documentation, and roadmap policies exist; release process, compatibility matrix, and maintenance policy need operational proof |
 
-## 后续演进
+## Remaining gaps before a tagged preview
 
-### Runner adapter
+1. Define AI-facing generation contracts for TestCases, API automation, UI automation, and adapter changes.
+2. Implement versioned `ExecutionPlan`, `ExecutionEvent`, and `ExecutionResult` contracts.
+3. Integrate an API runner and Playwright runner through the same explicit adapter boundary.
+4. Implement and test evidence redaction, retention, cancellation, timeout, and failure handling.
+5. Demonstrate the full synthetic flow: human specification → AI-generated assets → validated execution → Allure/native report → human review.
+6. Publish a platform-neutral automation recipe using repository scripts; do not make the core depend on one hosting provider.
+7. Verify the supported Windows/Linux and minimum Node.js/current LTS matrix.
+8. Define release tags, changelog generation, compatibility promises, and maintenance responsibilities.
+9. Establish upgrade checks and a bundle budget for critical `0.x` dependencies.
 
-先定义最小 `RunnerAdapter` 契约，再分别接入 API、Playwright 和命令型 runner。runner 只接收结构化 execution plan；鉴权、请求头和登录流程属于项目侧 adapter。
+## Distribution assessment
 
-### 项目接入
+The repository distributes source only. It does not ship `node_modules`, bundles, containers, offline dependencies, or third-party binaries. npm dependency notices are therefore not copied into the source tree, while each dependency remains governed by its locked version's license.
 
-通过项目清单或独立 adapter 验证通用核心。真实 OAS、Arazzo、TestCase、环境身份和报告不能回灌到公共仓库。
-
-### 公开预览
-
-完成内容、安全和 fresh-clone 门禁后发布预览源码。公开仓库不等于稳定 API，也不自动承诺远程部署和 package 分发。
-
-### 版本治理
-
-公开后采用语义化版本、兼容矩阵和安全响应流程；只有经过实际接入和迁移演练后再进入 `1.0`。
+If the distribution model changes, regenerate third-party notices and an SBOM against the actual artifact. See the [roadmap](open-source-roadmap.md) for phases and the [publication boundary](publication-boundary.md) for release checks.

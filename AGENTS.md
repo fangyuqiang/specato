@@ -1,25 +1,49 @@
-# AI Agent 指令
+<div align="right">
+  <strong>English</strong> | <a href="AGENTS.zh-CN.md">简体中文</a>
+</div>
 
-本仓库是独立的通用 QA Workbench，不依赖任何相邻仓库或非公开基础设施。
+# AI Coding Assistant Instructions
 
-## 工作边界
+This repository is an independent, general-purpose QA Workbench. It does not depend on a source business repository, an adjacent checkout, or private infrastructure.
 
-- 文档、注释和协作说明以中文为主；命令、API、字段名和规范关键字保留英文。
-- 默认做最小、安全、可验证的修改，不引入真实业务资产来替代 synthetic fixture。
-- 禁止提交 SQL、真实 OAS/Arazzo/TestCase、截图基线、trace、HAR、报告、账号、token、Cookie、非公开域名、个人路径或环境身份。
-- 复制或生成到仓库内的第三方源码必须保留许可证，并在 `THIRD_PARTY_NOTICES.md` 记录范围与上游来源；新增或同步时必须记录 revision，历史快照缺失时应明确标记 unknown，不得猜测。
-- `qa/config/environments.yaml` 仅供本机使用，不得跟踪；secret value 只从环境变量读取。
-- Workbench 的文件读取必须经过 manifest 白名单、规范化路径和 realpath 边界检查。
-- 非 loopback 监听属于高风险能力，必须显式启用并在实现认证后才能推荐使用。
+## Product model
 
-## 验证
+- QA Workbench is an AI-native, Git-based, SDD-driven workspace for API and UI automation testing.
+- Humans define and approve specifications, acceptance intent, policy, and risk boundaries.
+- Codex, Claude Code, and other interchangeable AI coding assistants generate and maintain TestCases, API/UI automation, runner adapters, execution plans, and report integration from those specifications.
+- Repository contracts are the durable interface. Do not make a prompt, one model, hidden agent state, or the visual UI the source of truth.
+- The visual Workbench UI is for human observation and review; it is not the primary manual orchestration interface.
+- Integrate established standards and tools such as OpenAPI, Arazzo, Playwright, and Allure. Do not reimplement their core behavior without a demonstrated integration gap.
 
-提交前至少执行：
+## Working boundaries
+
+- Make the smallest safe and verifiable change that satisfies the request.
+- Do not introduce real business assets as substitutes for synthetic fixtures.
+- Never commit SQL, real OAS/Arazzo/TestCases, screenshot baselines, traces, HAR files, reports, accounts, tokens, cookies, private domains, personal paths, or environment identities.
+- Treat AI-generated content like human-authored content: verify specification fidelity, confidentiality, provenance, licenses, and public suitability before commit.
+- Third-party source copied or generated into the repository must retain its license and be recorded in `THIRD_PARTY_NOTICES.md` with scope and upstream source. Record the exact revision for new synchronization; mark an unknown historical snapshot as `unknown` rather than guessing.
+- `qa/config/environments.yaml` is local-only and must remain untracked. Secret values come from environment variables only.
+- Workbench file reads must pass manifest allowlists, path normalization, and realpath containment.
+- Non-loopback binding is high risk. It requires explicit opt-in and must not be recommended before authentication and authorization are implemented.
+
+## Documentation
+
+- English is the default language for maintained project documentation.
+- Every maintained `*.md` document must have a synchronized `*.zh-CN.md` mirror and a language switch at the top of both files.
+- `README.md` is the default entry point and links to `README.zh-CN.md`.
+- Legal license texts remain in their official language; explanatory documents may be bilingual.
+- Executable Markdown fixtures under `examples/` are test inputs and do not require translated duplicates.
+- Clearly separate delivered behavior, active work, and roadmap intent.
+
+## Verification
+
+Before committing, run at least:
 
 ```powershell
 pnpm install --frozen-lockfile
 pnpm run verify
 pnpm audit --prod --audit-level moderate
+pnpm run audit:repository
 ```
 
-并运行专有标识、secret、依赖许可证和大文件扫描。测试未执行或因环境受阻时必须明确说明，不得声称通过。
+Also run private-residue, secret, dependency-license, Git-history, documentation-link, bilingual-coverage, and large-file scans. If a check was skipped or blocked, report that fact; never claim it passed.
