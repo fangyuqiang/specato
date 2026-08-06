@@ -1,0 +1,25 @@
+{
+  "name": "qa-workbench",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "type": "module",
+  "description": "Git-native, spec-to-test QA workbench.",
+  "packageManager": "pnpm@10.34.5",
+  "scripts": {
+    "dev": "pnpm --filter @qa-workbench/app run dev",
+    "start": "pnpm --filter @qa-workbench/app run start",
+    "build": "pnpm --filter @qa-workbench/app run build",
+    "test": "node --test qa/core/tests/*.test.mjs && pnpm --filter @qa-workbench/app run test",
+    "verify": "pnpm run test && pnpm run build",
+    "audit:repository": "node scripts/repository-audit.mjs",
+    "report": "pnpm --filter @qa-workbench/app run report"
+  },
+  "dependencies": {
+    "fast-glob": "3.3.3",
+    "yaml": "2.9.0"
+  },
+  "engines": {
+    "node": ">=20.19"
+  }
+}

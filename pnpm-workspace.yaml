@@ -1,0 +1,11 @@
+packages:
+  - qa/workbench
+
+overrides:
+  postcss: ">=8.5.23"
+
+onlyBuiltDependencies:
+  - vue-demi
+
+ignoredBuiltDependencies:
+  - core-js-pure

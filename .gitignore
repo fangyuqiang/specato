@@ -1,0 +1,59 @@
+# Dependencies and package-manager state
+node_modules/
+.pnpm-store/
+
+# Build and test output
+/dist/
+/build/
+/coverage/
+/.nyc_output/
+/playwright-report/
+/test-results/
+/blob-report/
+*.log
+
+# QA Workbench runtime output
+.qa-workbench/
+.playwright-cli/
+qa/.runtime/
+qa/output/
+/artifacts/
+/reports/
+/traces/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+qa/config/environments.yaml
+*.local.yaml
+*.local.yml
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.mobileprovision
+
+# Data dumps and local databases
+*.sql
+*.dump
+*.sqlite
+*.sqlite3
+*.db
+
+# Editor and operating-system files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.orig

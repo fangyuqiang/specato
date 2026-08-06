@@ -1,0 +1,36 @@
+schemaVersion: 1
+
+project:
+  id: qa-workbench-demo
+  name: QA Workbench Demo
+  description: Synthetic data used to verify a clean standalone checkout.
+
+modules:
+  demo:
+    name: Demo service
+    description: Synthetic health and echo capabilities.
+    group:
+      id: examples
+      name: Examples
+
+catalog:
+  openapi:
+    - examples/demo/openapi/**/*.{yaml,yml}
+  workflows:
+    - examples/demo/arazzo/**/*.{yaml,yml}
+  testcases:
+    - files:
+        - examples/demo/testcases/*.md
+      module: demo
+      capability: demo/health
+
+environment:
+  file: qa/config/environments.yaml
+  exampleFile: qa/config/environments.example.yaml
+
+workbench:
+  readableFiles:
+    - qa/project.yaml
+    - qa/config/environments.example.yaml
+  readableRoots:
+    - examples/demo/

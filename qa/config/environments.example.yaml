@@ -1,0 +1,10 @@
+default: demo
+
+environments:
+  demo:
+    label: Synthetic demo
+    description: Reserved example endpoint; replace it in environments.yaml.
+    servers:
+      api: https://api.example.test
+    transport:
+      tlsVerify: true

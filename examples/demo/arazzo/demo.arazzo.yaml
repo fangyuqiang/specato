@@ -1,0 +1,16 @@
+arazzo: 1.0.1
+info:
+  title: Synthetic Demo Workflow
+  version: 1.0.0
+sourceDescriptions:
+  - name: demoApi
+    url: ../openapi/demo.oas.yaml
+    type: openapi
+workflows:
+  - workflowId: verifyHealth
+    summary: Verify the synthetic service health contract
+    steps:
+      - stepId: readHealth
+        operationId: $sourceDescriptions.demoApi.getHealth
+        successCriteria:
+          - condition: $statusCode == 200
